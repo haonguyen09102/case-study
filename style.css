@@ -1,0 +1,41 @@
+.thongTin,.danhSach{
+    border: solid 1px;
+    width: 500px;
+    margin: 25px;
+    padding: 10px;
+    float: left;
+    
+}
+
+.title{
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.label{
+    width: 100px;
+    float: left;
+}
+
+.infor[type="text"],[type="button"]{
+    margin-bottom: 10px;
+    width: 200px;
+    padding: 2px;
+}
+
+.save{
+    margin-top: 15px;
+    margin-left: 100px;
+}
+
+.danhSach{
+    width: 650px;
+}
+
+.error{
+    color: red;    
+}
+
+
+
+    
