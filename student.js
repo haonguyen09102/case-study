@@ -2,7 +2,8 @@ function emailCheck(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function save() {
+//thêm thông tin
+function saveStudent() {
     let fullName = document.getElementById("fullName").value;
     let email = document.getElementById("email").value;
     let phone = document.getElementById("phone").value;
@@ -67,6 +68,133 @@ function save() {
     }
 
     if(fullName && email && phone && address && gender) {
-        console.log(fullName, email, phone, address, gender);
+        //lưu vào dsacch svien
+        let students = localStorage.getItem("students") ? JSON.parse( localStorage.getItem("students")) : [];
+
+        students.push({
+            fullName: fullName,
+            email: email,
+            phone: phone,
+            address: address,
+            gender: gender,
+        })
+
+        localStorage.setItem("students", JSON.stringify(students));
+
+        this.saveListStudent();
+
+        let table = `<tr>
+        <td>#</td>
+        <td>Họ và tên</td>
+        <td>Email</td>
+        <td>Điện thoại</td>
+        <td>Địa chỉ</td>
+        <td>Giới tính</td>
+        <td>Hành động</td>
+    </tr>`;
+
+    students.forEach((students,idx) => {
+        let studentId = idx;
+        idx++;
+        let genderCheck = parseInt(students.gender) === 1 ? "Nam" : "Nữ";
+        table +=`<tr>
+        <td>${idx}</td>
+        <td>${students.fullName}</td>
+        <td>${students.email}</td>
+        <td>${students.phone}</td>
+        <td>${students.address}</td>
+        <td>${genderCheck}</td>
+        <td>
+            <a href="#" onclick="edit(${studentId})">Edit</a> | <a href="#" onclick="deleteStudent(${studentId})">Delete</a>
+        </td>
+    </tr>`;
+    })
+
+    document.getElementById("listStudent").innerHTML = table;
+
     }
+}
+
+function saveListStudent() {
+    let students = localStorage.getItem("students") ? JSON.parse( localStorage.getItem("students")) : [];
+    if(students.length === 0){
+        document.getElementById("danhSach").style.display = "none";
+        return false; 
+    } 
+
+    document.getElementById("danhSach").style.display = "block";
+    
+    let table = `<tr>
+    <td width ="20">#</td>
+    <td>Họ và tên</td>
+    <td>Email</td>
+    <td>Điện thoại</td>
+    <td>Địa chỉ</td>
+    <td>Giới tính</td>
+    <td>Hành động</td>
+    </tr>`;
+
+
+    students.forEach((students,idx) => {
+    let studentId = idx;
+    idx++; 
+    let genderCheck = parseInt(students.gender) === 1 ? "Nam" : "Nữ";
+    table +=`<tr>
+    <td>${idx}</td>
+    <td>${students.fullName}</td>
+    <td>${students.email}</td>
+    <td>${students.phone}</td>
+    <td>${students.address}</td>
+    <td>${genderCheck}</td>
+    <td>
+        <a href="#" onclick="edit(${studentId})">Edit</a> | <a href="#" onclick="deleteStudent(${studentId})">Delete</a>
+    </td>
+    </tr>`;
+    })
+
+    document.getElementById("listStudent").innerHTML = table;
+}
+
+//Xóa thông tin
+function deleteStudent(id) {
+    let students = localStorage.getItem("students") ? JSON.parse( localStorage.getItem("students")) : [];
+    students.splice(id, 1);
+
+    localStorage.setItem("students", JSON.stringify(students));
+
+    saveListStudent();
+
+}
+
+//Sửa thông tin
+function edit(id) {
+    let students = localStorage.getItem("students") ? JSON.parse( localStorage.getItem("students")) : [];
+    document.getElementById("fullName").value = students[id].fullName;
+    document.getElementById("email").value = students[id].email;
+    document.getElementById("phone").value = students[id].phone;
+    document.getElementById("address").value = students[id].address;
+    document.getElementById("index").value = id;
+
+    document.getElementById("save").style.display ="none";
+    document.getElementById("update").style.display ="inline-block";
+}
+
+function Update() {
+    let students = localStorage.getItem("students") ? JSON.parse( localStorage.getItem("students")) : [];
+    let index = document.getElementById("index").value;
+
+    students[index] = {
+        fullName: document.getElementById("fullName").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        
+    }
+
+    localStorage.setItem("students", JSON.stringify(students));
+
+    saveListStudent();
+
+    document.getElementById("save").style.display ="inline-block";
+    document.getElementById("update").style.display ="none";
 }

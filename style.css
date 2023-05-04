@@ -1,10 +1,14 @@
 .thongTin,.danhSach{
+    background-color: gainsboro;
     border: solid 1px;
     width: 500px;
     margin: 25px;
     padding: 10px;
-    float: left;
-    
+    float: left; 
+}
+
+.thongTin{
+    border-radius: 5px;
 }
 
 .title{
@@ -34,6 +38,10 @@
 
 .error{
     color: red;    
+}
+
+#listStudent{
+    background-color: white;
 }
 
 

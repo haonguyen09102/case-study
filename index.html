@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Quản lý sinh viên</title>
 </head>
-<body>
+<body onload="saveListStudent()">
     <div class="formSv">
        <div class="thongTin">
         <form>
@@ -18,32 +18,27 @@
             <label class="label">Email:</label>
             <input type="text" id="email" class="infor">
             <span id="email-error" class="error"></span><br>
-            <label class="label">Số điện thoại</label>
+            <label class="label">Số điện thoại:</label>
             <input type="text" id="phone" class="infor">
             <span id="phone-error" class="error"></span><br>
-            <label class="label">Địa chỉ</label>
+            <label class="label">Địa chỉ:</label>
             <input type="text" id="address" class="infor">
             <span id="address-error" class="error"></span><br>
-            <label class="label">Giới tính</label>
+            <label class="label">Giới tính:</label>
             <input type="radio" class="infor" name="gender" id="male" value="1">Nam;
             <input type="radio" class="infor" name="gender" id="female" value="2">Nữ;
             <span id="gender-error" class="error"></span><br>
             <label>&nbsp;</label><br>
-            <input type="button" class="save" onclick="save()" value="Lưu lại">
+            <input type="button" id="save" class="save" onclick="saveStudent()" value="Lưu lại">
+            <input type="button" id="update" class="save" onclick="Update()" style="display: none;" value="Update">
+            <input id="index" type="hidden">
         </form>   
        </div>
 
-       <div class="danhSach">
+       <div class="danhSach" id="danhSach">
         <h3 class="title">Danh sách sinh viên</h3>
-        <table width="600" border="1" cellspacing="0" cellpadding="0">
-            <tr>
-                <td>#</td>
-                <td>Họ và tên</td>
-                <td>Email</td>
-                <td>Điện thoại</td>
-                <td>Địa chỉ</td>
-                <td>Hành động</td>
-            </tr>
+        <table id="listStudent" width="650" border="1" cellspacing="0" cellpadding="0">
+            
         </table>
        </div>      
 
